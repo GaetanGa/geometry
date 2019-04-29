@@ -5,11 +5,15 @@ public class Segment {
     // VARIABLES
     private Edge p1;
     private Edge p2;
-    private Double distance;
+    private Double d;
 
     //CONSTRUCTOR
-    public Segment(){
+    public Segment(Edge _p1, Edge _p2){
+        this.p1 = _p1;
+        this.p2 = _p2;
 
+        p1.setSegment(this);
+        p2.setSegment(this);
     }
 
     // GETTERS / SETTERS
@@ -29,11 +33,11 @@ public class Segment {
         this.p2 = p2;
     }
 
-    public Double getDistance() {
-        return distance;
+    public Double getD() {
+        return d;
     }
 
-    public void setDistance(Double distance) {
-        this.distance = distance;
+    public void setD(Double d) {
+        this.d = d;
     }
 }
