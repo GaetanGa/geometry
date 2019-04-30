@@ -107,4 +107,98 @@ public class View {
             seg.getP2().setBegin(!seg.getP1().getBegin());
         });
     }
+
+    /**
+     * Indicate if a segment is in front of another relative to a point
+     * @param a
+     * @param b
+     * @param point
+     * @return
+     */
+    protected Boolean segmentAInFrontOfB(Segment a, Segment b, Point point){
+        Boolean A1 = leftOf(a, interpolate(b.getP1(), b.getP2(), 0.01));
+        Boolean A2 = leftOf(a, interpolate(b.getP1(), b.getP2(), 0.01));
+        Boolean A3 = leftOf(a, point);
+        Boolean B1 = leftOf(b, interpolate(a.getP1(), a.getP2(), 0.01));
+        Boolean B2 = leftOf(b, interpolate(a.getP1(), a.getP2(), 0.01));
+        Boolean B3 = leftOf(b, point);
+
+        if( B1.equals(B2) && !B2.equals(B3)) return true;
+        if( A1.equals(A2) && A2.equals(A3)) return true;
+        if( A1.equals(A2) && !A2.equals(A3)) return false;
+        if( B1.equals(B2) && B2.equals(B3)) return false;
+
+        return false;
+    }
+
+    /**
+     * Method to scan for visible edges
+     * @param maxAngle
+     */
+    public void scan(Double maxAngle){
+
+    }
+
+    /**
+     *
+     * @param a
+     * @param b
+     * @return
+     */
+    protected Integer compareEdge(Edge a, Edge b){
+        if(a.getAngle() > b.getAngle()) return 1;
+        if(a.getAngle() < b.getAngle()) return -1;
+        if(!a.getBegin() && b.getBegin()) return 1;
+        if(a.getBegin() && !b.getBegin()) return -1;
+        return 0;
+    }
+
+    /**
+     *
+     * @param s
+     * @param p
+     * @return
+     */
+    protected Boolean leftOf(Segment s, Point p){
+        Double cross = (s.getP2().getX() - s.getP1().getX()) * (p.getY() - s.getP1().getY()) - (s.getP2().getY() - s.getP1().getY()) * (p.getX() - s.getP1().getX());
+        return cross < 0;
+    }
+
+    /**
+     *
+     * @param p
+     * @param q
+     * @param f
+     * @return
+     */
+    protected Point interpolate(Point p, Point q, Double f){
+        return new Point(p.getX() * (1 - f) + q.getX() * f, p.getY() * (1 - f) + q.getY() * f);
+    }
+
+
+    // GETTERS / SETTERS
+
+    public List<Segment> getSegments() {
+        return segments;
+    }
+
+    public void setSegments(List<Segment> segments) {
+        this.segments = segments;
+    }
+
+    public List<Edge> getEdges() {
+        return edges;
+    }
+
+    public void setEdges(List<Edge> edges) {
+        this.edges = edges;
+    }
+
+    public Point getViewer() {
+        return viewer;
+    }
+
+    public void setViewer(Point viewer) {
+        this.viewer = viewer;
+    }
 }

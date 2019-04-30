@@ -8,8 +8,6 @@ public class TestPolygon {
 
     @Test
     public void testCreatingPolygon() {
-        Polygon p = new Polygon();
-        p.add(new Point(1, 2));
 
     }
 }

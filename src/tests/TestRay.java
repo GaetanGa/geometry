@@ -6,6 +6,5 @@ public class TestRay {
 
     @Test
     public void testCreatingRay() {
-        Ray r = new Ray();
     }
 }
